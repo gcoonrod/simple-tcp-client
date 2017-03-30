@@ -1,0 +1,19 @@
+{
+  "name": "help-challenge",
+  "version": "1.0.0",
+  "description": "Help.com Coding Challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gcoonrod/help-challenge.git"
+  },
+  "author": "greg.coonrod@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gcoonrod/help-challenge/issues"
+  },
+  "homepage": "https://github.com/gcoonrod/help-challenge#readme"
+}
