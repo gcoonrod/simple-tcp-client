@@ -9,7 +9,7 @@ const Client = require('../lib/client');
 let server, client;
 
 describe('Tests', function() {
-    before(function(done) {
+    beforeEach(function(done) {
         server = new Server(8192);
         server.start(() => {
             console.log('Server started');
@@ -17,7 +17,7 @@ describe('Tests', function() {
         });
     });
 
-    after(function(done) {
+    afterEach(function(done) {
         server.stop(error => {
             console.log('Server stopped');
             done(error);
@@ -46,26 +46,46 @@ describe('Tests', function() {
         });
 
         it('should accept a valid login', function(done) {
-            let login = {
-                name: 'Bob'
-            };
 
-            client._send(JSON.stringify(login), () => {
+            client.login('test1', () => {
                 setTimeout(() => {
-                    expect(client.heartbeats.length).to.be.within(3, 5);
+                    expect(client.loggedIn).to.be.true;
                     done();
                 }, 5000);
             });
+
         });
 
         it('should respond with an error when sent invalid json', function(done) {
             let badJson = '{"foo": "bar"]';
 
-            client._send(badJson, () => {
+            client.login('test2', () => {
+                client._socket.write(badJson, () => {
+                    setTimeout(() => {
+                        expect(client.errors.length).to.be.equal(1);
+                        done();
+                    }, 5000);
+                });
+            });
+        });
+
+        it('should get a count of requests', function(done) {
+            client.login('test3', () => {
                 setTimeout(() => {
-                    expect(client.errors.length).to.be.equal(1);
-                    done();
-                }, 5000);
+                    client.requestCount('test3', () => {
+                        done();
+                    });
+                }, 2000)
+            });
+        });
+
+        it('should get the time', function(done) {
+            client.login('test4', () => {
+                setTimeout(() => {
+                    client.requestTime('test4', () => {
+                        done();
+                    });
+                }, 2000);
             });
         });
     });
