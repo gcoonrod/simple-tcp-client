@@ -26,16 +26,6 @@ describe('Tests', function () {
     })
   })
 
-  it('is alive', function (done) {
-    client = new Client('127.0.0.1', 8192)
-    client.start(() => {
-      console.log('whee')
-      client.stop(() => {
-        done()
-      })
-    })
-  })
-
   describe('Server Tests', function () {
     beforeEach(function (done) {
       client = new Client('127.0.0.1', 8192)
@@ -49,9 +39,9 @@ describe('Tests', function () {
     it('should accept a valid login', function (done) {
       client.login('test1', () => {
         setTimeout(() => {
-          expect(client.loggedIn).to.be.true
+          expect(client.isLoggedIn()).to.be.true
           done()
-        }, 5000)
+        }, 2100)
       })
     })
 
@@ -63,7 +53,7 @@ describe('Tests', function () {
           setTimeout(() => {
             expect(client.errors.length).to.be.equal(1)
             done()
-          }, 5000)
+          }, 2600)
         })
       })
     })
@@ -72,9 +62,12 @@ describe('Tests', function () {
       client.login('test3', () => {
         setTimeout(() => {
           client.requestCount('test3', () => {
-            done()
+            setTimeout(() => {
+              expect(client.lastRequestCount).to.equal(2)
+              done()
+            }, 2300)
           })
-        }, 2000)
+        }, 2100)
       })
     })
 
@@ -84,7 +77,7 @@ describe('Tests', function () {
           client.requestTime('test4', () => {
             done()
           })
-        }, 2000)
+        }, 2400)
       })
     })
   })
