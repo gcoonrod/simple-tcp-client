@@ -10,25 +10,54 @@ const Client = require('../lib/client')
 
 let server, client
 
+let logger
+if (process.env.NODE_ENV !== 'development') {
+  logger = {
+    log () {
+      // Intentionally throw it away so we don't clutter the command line
+      // during automated tests
+    }
+  }
+} else {
+  logger = console
+}
+
+function getClient (mode) {
+  if (mode === 'development') {
+    return new Client('127.0.0.1', 8192, {
+      logger: console
+    })
+  }
+
+  return new Client('127.0.0.1', 8192, {
+    logger: {
+      log () {
+        // Intentionally throw it away so we don't clutter the command line
+        // during automated tests
+      }
+    }
+  })
+}
+
 describe('Tests', function () {
   beforeEach(function (done) {
     server = new Server(8192)
     server.start(() => {
-      console.log('Server started')
+      logger.log('Server started')
       done()
     })
   })
 
   afterEach(function (done) {
     server.stop(error => {
-      console.log('Server stopped')
+      logger.log('Server stopped')
       done(error)
     })
   })
 
   describe('Server Tests', function () {
     beforeEach(function (done) {
-      client = new Client('127.0.0.1', 8192)
+      client = getClient(process.env.NODE_ENV)
       client.start(done)
     })
 
