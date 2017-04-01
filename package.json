@@ -1,21 +1,21 @@
 {
-  "name": "help-challenge",
+  "name": "simple-tcp-client",
   "version": "1.0.0",
-  "description": "Help.com Coding Challenge",
+  "description": "Coding Challenge",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/_mocha --timeout=10000 ./test/test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gcoonrod/help-challenge.git"
+    "url": "git+https://github.com/gcoonrod/simple-tcp-client.git"
   },
   "author": "greg.coonrod@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gcoonrod/help-challenge/issues"
+    "url": "https://github.com/gcoonrod/simple-tcp-client/issues"
   },
-  "homepage": "https://github.com/gcoonrod/help-challenge#readme",
+  "homepage": "https://github.com/gcoonrod/simple-tcp-client#readme",
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^3.19.0",

@@ -22,7 +22,7 @@ function getClient (mode) {
 
 vorpal
   .command('connect')
-  .description('Connects to Help.com Test Server')
+  .description('Connects to Test Server')
   .action((args, callback) => {
     client = getClient(process.env.NODE_ENV)
     client.start(callback)
@@ -30,7 +30,7 @@ vorpal
 
 vorpal
   .command('login <name>')
-  .description('Logs in to Help.com Test Server with NAME')
+  .description('Logs in to Test Server with NAME')
   .action((args, callback) => {
     let name = args.name
     client.login(name, () => {
@@ -42,21 +42,21 @@ vorpal
 
 vorpal
   .command('get time')
-  .description('Requests current time from Help.com Test Server')
+  .description('Requests current time from Test Server')
   .action((args, callback) => {
     client.requestTime(id, callback)
   })
 
 vorpal
   .command('get count')
-  .description('Requests count from Help.com Test Server')
+  .description('Requests count from Test Server')
   .action((args, callback) => {
     client.requestCount(id, callback)
   })
 
 vorpal
   .command('quit')
-  .description('Disconnects from Help.com Test Server and exits application')
+  .description('Disconnects from Test Server and exits application')
   .action(function (args) {
     const self = this
     args.options = args.options || {}
@@ -68,7 +68,7 @@ vorpal
 
 vorpal
   .command('send <json>')
-  .description('Sends raw JSON to Help.com Test Server')
+  .description('Sends raw JSON to Test Server')
   .action(function (args, callback) {
     const self = this
     let request
